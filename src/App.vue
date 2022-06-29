@@ -105,8 +105,8 @@ export default {
       console.log(this.form.password)
       console.log(this.form.gender)
       console.log(this.form.languages)
-      let birthday = this.form.day + " / " + this.form.month + " / " + this.form.year;
-      console.log(birthday);
+      let birthday = new Date(this.form.year, this.form.month, this.form.day);
+      console.log(birthday.toLocaleDateString());
       console.log(this.form.note)
     },
     get_days() {
