@@ -32,15 +32,15 @@
         <b-form-group label="Birthday" id="selectDate">
           <b-row>
             <b-col md="4" class="d-flex">
-              <b-form-select v-model="form.year" @change="get_days">
-                <option v-for="n in get_quantity_year()" :value="n + 1899" :key="n">
+              <b-form-select v-model="form.year" @change="get_days()">
+                <option v-for="n in get_quantity_year" :value="n + 1899" :key="n">
                 {{ n + 1899 }} 
                 </option>
               </b-form-select> 
               <span class="ml-2">YEAR</span>
             </b-col>
             <b-col md="4" class="d-flex">
-              <b-form-select v-model="form.month" @change="get_days">
+              <b-form-select v-model="form.month" @change="get_days()">
                 <option v-for="n in 12" :value="n" :key="n">
                 {{ n }}
                 </option>
@@ -95,9 +95,15 @@ export default {
       languageList: languageList
     };
   },
-  created: function () {
-                this.get_days();
-            },
+  created() {
+    this.get_days();
+  },
+  computed: {
+    get_quantity_year() {
+      let currentYear = new Date().getFullYear();
+      return parseInt(currentYear) - 1900 + 1;
+    } 
+  },
   methods: {
     onSubmit(event) {
       console.log(this.form.name)
@@ -108,15 +114,10 @@ export default {
       let birthday = new Date(this.form.year, this.form.month, this.form.day)
       console.log(birthday.toLocaleDateString())
       console.log(this.form.note)
-      console.log(this.get_quantity_year())
-    },
-    get_days() {
+    },     
+    get_days(){
       this.form.days_max = new Date(this.form.year, this.form.month, 0).getDate(); 
     },
-    get_quantity_year() {
-      let currentYear = new Date().getFullYear();
-      return parseInt(currentYear) - 1900 + 1;
-    } 
   },
 };
 </script>
