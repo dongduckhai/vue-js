@@ -33,7 +33,7 @@
           <b-row>
             <b-col md="4" class="d-flex">
               <b-form-select v-model="form.year" @change="get_days">
-                <option v-for="n in 200" :value="n + 1899" :key="n">
+                <option v-for="n in get_quantity_year()" :value="n + 1899" :key="n">
                 {{ n + 1899 }} 
                 </option>
               </b-form-select> 
@@ -105,12 +105,17 @@ export default {
       console.log(this.form.password)
       console.log(this.form.gender)
       console.log(this.form.languages)
-      let birthday = new Date(this.form.year, this.form.month, this.form.day);
-      console.log(birthday.toLocaleDateString());
+      let birthday = new Date(this.form.year, this.form.month, this.form.day)
+      console.log(birthday.toLocaleDateString())
       console.log(this.form.note)
+      console.log(this.get_quantity_year())
     },
     get_days() {
       this.form.days_max = new Date(this.form.year, this.form.month, 0).getDate(); 
+    },
+    get_quantity_year() {
+      let currentYear = new Date().getFullYear();
+      return parseInt(currentYear) - 1900 + 1;
     } 
   },
 };
